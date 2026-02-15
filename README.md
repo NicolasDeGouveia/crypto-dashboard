@@ -13,11 +13,15 @@ npm install
 ```bash
 COINGECKO_API_KEY=your_demo_api_key_here
 ```
-Get a free demo API key at [coingecko.com/en/api](https://www.coingecko.com/en/api/pricing)
+Get a free demo API key at [coingecko.com/en/api/pricing](https://www.coingecko.com/en/api/pricing)
 
-3. Start the development server:
+3. Run the app:
 ```bash
+# Development mode
 npm run dev
+
+# Production build
+npm run build && npm start
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000)
