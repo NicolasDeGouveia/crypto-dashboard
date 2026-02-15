@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { COINGECKO_API_KEY, COINGECKO_BASE_URL } from "../../_lib/constants";
-import { CoinDetails } from "../../_lib/types";
+import { getCoinDetails } from "../../_lib/api";
+import ErrorMessage from "../../components/ErrorMessage";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -8,27 +8,24 @@ type Props = {
 
 const CoinDetailPage = async ({ params }: Props) => {
   const { id } = await params;
+  const coinData = await getCoinDetails(id);
 
-  let coinData: CoinDetails | null = null;
-
-  try {
-    const res = await fetch(`${COINGECKO_BASE_URL}/coins/${id}`, {
-      headers: {
-        "x-cg-demo-api-key": `${COINGECKO_API_KEY}`,
-      },
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch coin data: ${res.status}`);
-    }
-
-    coinData = await res.json();
-  } catch (error) {
-    console.error(error);
+  if (!coinData) {
+    return (
+      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+        <Link
+          href="/"
+          className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 mb-4"
+        >
+          ← Back to Dashboard
+        </Link>
+        <ErrorMessage
+          title="Error loading coin details"
+          message="Unable to fetch details for this cryptocurrency."
+        />
+      </div>
+    );
   }
-
-  if (!coinData) return null;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
