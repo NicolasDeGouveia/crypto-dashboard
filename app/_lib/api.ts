@@ -23,7 +23,7 @@ export async function getCoinsPrices(): Promise<CoinPriceResponse | null> {
       return null;
     }
 
-    const data = await res.json();
+    const data: CoinPriceResponse = await res.json();
 
     if (!data || Object.keys(data).length === 0) {
       console.error("API returned empty or invalid data");
@@ -50,7 +50,7 @@ export async function getCoinDetails(id: string): Promise<CoinDetails | null> {
       return null;
     }
 
-    const data = await res.json();
+    const data: CoinDetails = await res.json();
 
     if (!data) {
       console.error(`API returned invalid data for ${id}`);

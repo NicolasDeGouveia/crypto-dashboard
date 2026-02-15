@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { formatPrice } from "@/app/_lib/utils";
 
 type Props = {
   id: string;
@@ -9,8 +10,7 @@ type Props = {
   percent: number;
 };
 
-const Card = ({ id, name, symbol, price, percent }: Props) => {
-  const formattedPrice = `$${price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const CoinListItem = ({ id, name, symbol, price, percent }: Props) => {
   const percentColor =
     percent >= 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700";
 
@@ -34,7 +34,7 @@ const Card = ({ id, name, symbol, price, percent }: Props) => {
               {symbol}
             </p>
             <p className="lg:hidden text-lg font-semibold text-slate-900 mt-1">
-              {formattedPrice}
+              {formatPrice(price)}
             </p>
           </div>
         </div>
@@ -55,7 +55,7 @@ const Card = ({ id, name, symbol, price, percent }: Props) => {
       </p>
 
       <p className="hidden lg:block text-lg font-semibold text-slate-900">
-        {formattedPrice}
+        {formatPrice(price)}
       </p>
 
       <div className="hidden lg:block">
@@ -70,4 +70,4 @@ const Card = ({ id, name, symbol, price, percent }: Props) => {
   );
 };
 
-export default Card;
+export default CoinListItem;

@@ -1,15 +1,14 @@
 import { COINS } from "./_lib/constants";
 import { getCoinsPrices } from "./_lib/api";
-import Card from "./components/Card";
+import CoinListItem from "./components/CoinListItem";
 import ErrorMessage from "./components/ErrorMessage";
-import { Fragment } from "react/jsx-runtime";
 
 const Home = async () => {
   const data = await getCoinsPrices();
 
   if (!data) {
     return (
-      <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+      <>
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
           Crypto Dashboard
         </h1>
@@ -18,12 +17,12 @@ const Home = async () => {
           title="Error loading cryptocurrency data"
           message="Unable to fetch prices. Please try again later."
         />
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+    <>
       <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
         Crypto Dashboard
       </h1>
@@ -40,22 +39,21 @@ const Home = async () => {
         {COINS.map((coin) => {
           const priceData = data[coin.id];
 
-          if (!priceData) return
+          if (!priceData) return null;
 
           return (
-            <Fragment key={coin.id}>
-              <Card
-                id={coin.id}
-                name={coin.name}
-                price={priceData.usd}
-                percent={priceData.usd_24h_change}
-                symbol={coin.symbol}
-              />
-            </Fragment>
+            <CoinListItem
+              key={coin.id}
+              id={coin.id}
+              name={coin.name}
+              price={priceData.usd}
+              percent={priceData.usd_24h_change}
+              symbol={coin.symbol}
+            />
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 
