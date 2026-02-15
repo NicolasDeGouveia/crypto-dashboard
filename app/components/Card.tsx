@@ -1,6 +1,5 @@
-"use client";
-
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   id: string;
@@ -16,9 +15,9 @@ const Card = ({ id, name, symbol, price, percent }: Props) => {
     percent >= 0 ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700";
 
   return (
-    <div
-      className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-black/5 sm:p-5
-                        lg:grid lg:grid-cols-5 lg:items-center lg:gap-6"
+    <Link
+      href={`/coins/${id}`}
+      className="block rounded-xl bg-white p-4 shadow-sm ring-1 ring-black/5 sm:p-5 lg:grid lg:grid-cols-4 lg:items-center lg:gap-6 transition-all hover:shadow-md hover:ring-slate-300"
     >
       <div className="flex items-center justify-between lg:contents">
         <div className="flex items-center gap-3">
@@ -67,11 +66,7 @@ const Card = ({ id, name, symbol, price, percent }: Props) => {
           {percent.toFixed(2)}%
         </span>
       </div>
-
-      <button className="hidden lg:block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">
-        View Details →
-      </button>
-    </div>
+    </Link>
   );
 };
 

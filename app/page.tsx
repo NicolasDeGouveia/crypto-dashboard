@@ -2,13 +2,12 @@ import {
   COINGECKO_API_KEY,
   COINGECKO_BASE_URL,
   COINS,
-} from "../_lib/constants";
-import { CoinPriceResponse } from "../_lib/types";
-import Image from "next/image";
-import Card from "../components/Card";
+} from "./_lib/constants";
+import { CoinPriceResponse } from "./_lib/types";
+import Card from "./components/Card";
 import { Fragment } from "react/jsx-runtime";
 
-const Listing = async () => {
+const Home = async () => {
   let data: CoinPriceResponse | null = null;
   try {
     const ids = COINS.map((coin) => coin.id).join(",");
@@ -35,12 +34,11 @@ const Listing = async () => {
       </h1>
       <div className="my-4 border-t border-slate-200" />
 
-      <div className="hidden lg:grid lg:grid-cols-5 lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:font-medium lg:text-slate-500 lg:border-b lg:border-slate-200">
+      <div className="hidden lg:grid lg:grid-cols-4 lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:font-medium lg:text-slate-500 lg:border-b lg:border-slate-200">
         <div>Name</div>
         <div>Symbol</div>
         <div>Price (USD)</div>
         <div>24h Change</div>
-        <div>Action</div>
       </div>
 
       <div className="space-y-4 lg:space-y-2 lg:mt-2">
@@ -58,4 +56,4 @@ const Listing = async () => {
   );
 };
 
-export default Listing;
+export default Home;
