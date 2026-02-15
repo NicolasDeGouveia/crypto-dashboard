@@ -3,6 +3,8 @@ import { getCoinsPrices } from "./_lib/api";
 import CoinListItem from "./components/CoinListItem";
 import ErrorMessage from "./components/ErrorMessage";
 
+export const dynamic = 'force-dynamic';
+
 const Home = async () => {
   const data = await getCoinsPrices();
 
