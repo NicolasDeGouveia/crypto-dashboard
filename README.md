@@ -2,6 +2,11 @@
 
 A Next.js dashboard displaying real-time cryptocurrency prices using the CoinGecko API.
 
+## Prerequisites
+
+- Node.js 20.9.0 or higher
+- npm
+
 ## How to Run
 
 1. Install dependencies:
