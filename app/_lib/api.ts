@@ -6,7 +6,7 @@ const getFetchOptions = (): RequestInit => ({
   headers: {
     "x-cg-demo-api-key": COINGECKO_API_KEY || "",
   },
-  cache: "no-store",
+  next: { revalidate: 60 },
 });
 
 
@@ -19,7 +19,11 @@ export async function getCoinsPrices(): Promise<CoinPriceResponse | null> {
     );
 
     if (!res.ok) {
-      console.error(`API error: ${res.status}`);
+      if (res.status === 429) {
+        console.error("API rate limit exceeded. Please wait a moment before refreshing.");
+      } else {
+        console.error(`API error: ${res.status}`);
+      }
       return null;
     }
 
@@ -46,7 +50,11 @@ export async function getCoinDetails(id: string): Promise<CoinDetails | null> {
     );
 
     if (!res.ok) {
-      console.error(`API error for ${id}: ${res.status}`);
+      if (res.status === 429) {
+        console.error("API rate limit exceeded. Please wait a moment before refreshing.");
+      } else {
+        console.error(`API error for ${id}: ${res.status}`);
+      }
       return null;
     }
 

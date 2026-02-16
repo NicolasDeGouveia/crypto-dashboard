@@ -4,8 +4,6 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { StatCard } from "../../components/StatCard";
 import { formatPrice } from "../../_lib/utils";
 
-export const dynamic = 'force-dynamic';
-
 type Props = {
   params: Promise<{ id: string }>;
 };

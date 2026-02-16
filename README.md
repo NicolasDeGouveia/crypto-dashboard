@@ -14,11 +14,11 @@ A Next.js dashboard displaying real-time cryptocurrency prices using the CoinGec
 npm install
 ```
 
-2. Create a `.env` file with your CoinGecko API key (required) at the root of the project:
+2. Create a `.env` file with your CoinGecko demo API key (required) at the root of the project:
 ```bash
 COINGECKO_API_KEY=your_demo_api_key_here
 ```
-Get a free demo API key at [coingecko.com/en/api/pricing](https://www.coingecko.com/en/api/pricing)
+Get a Demo API key at [coingecko.com/en/api/pricing](https://www.coingecko.com/en/api/pricing) (free tier)
 
 3. Run the app:
 ```bash
@@ -34,11 +34,11 @@ npm run build && npm start
 ## Assumptions
 
 - **Fixed coin list**: 5 predefined cryptocurrencies as per requirements (Bitcoin, Ethereum, Dogecoin, Cardano, Solana)
-- **Demo API tier**: Using CoinGecko demo API with rate limits (10-50 calls/min)
+- **CoinGecko Demo API**: Uses free Demo tier endpoints due to [rate limits](https://docs.coingecko.com/docs/common-errors-rate-limit) (10-30 calls/min)
 - **USD only**: Prices displayed in USD (currency not specified in requirements)
 
 ## Design Decisions
 
 - **Server-side rendering**: All pages use SSR for optimal performance and SEO
-- **No caching**: Real-time data with `cache: 'no-store'`
+- **Data caching**: 60-second revalidation to respect API rate limits while maintaining fresh data
 - **Atomic components**: Reusable `StatCard` and `CoinListItem` components
