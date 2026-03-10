@@ -13,11 +13,11 @@
 
 **Purpose**: Install new dependencies, configure environment, set up Drizzle + Neon connection.
 
-- [ ] T001 Install new dependencies: `next-auth@beta`, `drizzle-orm`, `drizzle-kit`, `@neondatabase/serverless`, `@node-rs/argon2`, `@upstash/ratelimit`, `@upstash/redis` in `package.json`
-- [ ] T002 Add `DATABASE_URL`, `AUTH_SECRET`, `AUTH_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` to `.env.example` with placeholder values and document in `README.md`
-- [ ] T003 [P] Add `assets.coingecko.com` to `images.remotePatterns` in `next.config.ts` for Next.js Image optimization
-- [ ] T004 [P] Create `drizzle.config.ts` at repo root pointing `DATABASE_URL` to `app/_lib/db/schema.ts`
-- [ ] T005 [P] Update `app/_lib/constants.ts` — add `PAGE_SIZE = 50`, `DEFAULT_SORT = 'market_cap_desc'`, `SORT_OPTIONS` map, remove hardcoded `COINS` array (keep as fallback constant)
+- [X] T001 Install new dependencies: `next-auth@beta`, `drizzle-orm`, `drizzle-kit`, `@neondatabase/serverless`, `@node-rs/argon2`, `@upstash/ratelimit`, `@upstash/redis` in `package.json`
+- [X] T00Add `DATABASE_URL`, `AUTH_SECRET`, `AUTH_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` to `.env.example` with placeholder values and document in `README.md`
+- [X] T00[P] Add `assets.coingecko.com` to `images.remotePatterns` in `next.config.ts` for Next.js Image optimization
+- [X] T00[P] Create `drizzle.config.ts` at repo root pointing `DATABASE_URL` to `app/_lib/db/schema.ts`
+- [X] T00[P] Update `app/_lib/constants.ts` — add `PAGE_SIZE = 50`, `DEFAULT_SORT = 'market_cap_desc'`, `SORT_OPTIONS` map, remove hardcoded `COINS` array (keep as fallback constant)
 
 ---
 
@@ -27,15 +27,15 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T006 Create Drizzle client in `app/_lib/db/index.ts` — instantiate `drizzle()` with `@neondatabase/serverless` HTTP driver, export `db` singleton
-- [ ] T007 Define Auth.js required tables in `app/_lib/db/schema.ts` — `users` (with added `password` and `createdAt` columns), `accounts`, `sessions`, `verificationTokens` using Drizzle schema syntax
-- [ ] T008 Add `favourites` table to `app/_lib/db/schema.ts` — columns: `id` (serial PK), `userId` (text FK → users.id CASCADE), `coinId` (text), `addedAt` (timestamp DEFAULT now()); add unique constraint on `(userId, coinId)` and index on `userId`
-- [ ] T009 Generate initial Drizzle migration with `drizzle-kit generate` — output to `db/migrations/`; verify SQL contains all tables with correct constraints
-- [ ] T010 Create `auth.ts` at repo root — configure Auth.js v5 with credentials provider; implement `authorize` callback that fetches user by email via Drizzle and verifies password with `@node-rs/argon2`; set JWT session strategy, 24h expiry
-- [ ] T011 Create `middleware.ts` at repo root — export Auth.js `auth` as middleware; configure matcher to exclude `/api/auth/*`, `_next/static`, `_next/image`, `favicon.ico`; redirect unauthenticated users away from `/(protected)/*` routes
-- [ ] T012 Create `app/(protected)/layout.tsx` — call `auth()`, redirect to `/login` if no session (defence-in-depth layer 2)
-- [ ] T013 [P] Create `app/_lib/types.ts` additions — define `CoinMarketSummary` and extend `CoinDetail` types per `data-model.md` field inventory (replacing current minimal `CoinDetails` type)
-- [ ] T014 [P] Update `app/_lib/api.ts` — add `getCoinMarkets({ page, sort, perPage, ids? }: CoinMarketsParams)` function calling `GET /coins/markets` with `revalidate: 60`; update `getCoinDetails` to use new query params `localization=false&tickers=false&sparkline=true` with `revalidate: 120`
+- [X] T00Create Drizzle client in `app/_lib/db/index.ts` — instantiate `drizzle()` with `@neondatabase/serverless` HTTP driver, export `db` singleton
+- [X] T00Define Auth.js required tables in `app/_lib/db/schema.ts` — `users` (with added `password` and `createdAt` columns), `accounts`, `sessions`, `verificationTokens` using Drizzle schema syntax
+- [X] T00Add `favourites` table to `app/_lib/db/schema.ts` — columns: `id` (serial PK), `userId` (text FK → users.id CASCADE), `coinId` (text), `addedAt` (timestamp DEFAULT now()); add unique constraint on `(userId, coinId)` and index on `userId`
+- [X] T00Generate initial Drizzle migration with `drizzle-kit generate` — output to `db/migrations/`; verify SQL contains all tables with correct constraints
+- [X] T01Create `auth.ts` at repo root — configure Auth.js v5 with credentials provider; implement `authorize` callback that fetches user by email via Drizzle and verifies password with `@node-rs/argon2`; set JWT session strategy, 24h expiry
+- [X] T01Create `middleware.ts` at repo root — export Auth.js `auth` as middleware; configure matcher to exclude `/api/auth/*`, `_next/static`, `_next/image`, `favicon.ico`; redirect unauthenticated users away from `/(protected)/*` routes
+- [X] T01Create `app/(protected)/layout.tsx` — call `auth()`, redirect to `/login` if no session (defence-in-depth layer 2)
+- [X] T01[P] Create `app/_lib/types.ts` additions — define `CoinMarketSummary` and extend `CoinDetail` types per `data-model.md` field inventory (replacing current minimal `CoinDetails` type)
+- [X] T01[P] Update `app/_lib/api.ts` — add `getCoinMarkets({ page, sort, perPage, ids? }: CoinMarketsParams)` function calling `GET /coins/markets` with `revalidate: 60`; update `getCoinDetails` to use new query params `localization=false&tickers=false&sparkline=true` with `revalidate: 120`
 
 **Checkpoint**: `db`, `auth`, middleware, types, and API service layer are ready. Run `npm run build` — should compile without errors.
 
@@ -51,24 +51,24 @@
 
 > **Write tests FIRST — verify they FAIL before implementing**
 
-- [ ] T015 [P] [US1] Write unit tests for `getCoinMarkets()` in `app/_lib/__tests__/api.test.ts` — mock fetch, assert correct URL construction for page/sort/search params, assert `CoinMarketSummary[]` return shape, assert null on API error
-- [ ] T016 [P] [US1] Write unit tests for `formatMarketCap()`, `formatVolume()`, `formatSupply()` utility functions in `app/_lib/__tests__/utils.test.ts`
-- [ ] T017 [P] [US1] Write component test for `<PaginationControls>` in `app/components/__tests__/PaginationControls.test.tsx` — assert prev/next links render correct `?page=` URLs, assert current page is highlighted, assert disabled state on first/last page
-- [ ] T018 [P] [US1] Write component test for `<SearchInput>` in `app/components/__tests__/SearchInput.test.tsx` — assert input renders with initial value from URL, assert `router.replace` is called with debounced query after typing
-- [ ] T019 [P] [US1] Write component test for `<SortableColumnHeader>` in `app/components/__tests__/SortableColumnHeader.test.tsx` — assert active sort column shows directional indicator, assert link href resets page to 1 when sort changes
-- [ ] T020 [P] [US1] Write component test for `<CoinListSkeleton>` in `app/components/__tests__/CoinListSkeleton.test.tsx` — assert exactly `PAGE_SIZE` (50) skeleton rows render
-- [ ] T021 [P] [US1] Write component test for updated `<CoinListItem>` in `app/components/__tests__/CoinListItem.test.tsx` — assert coin image renders with `next/image`, assert name/symbol/price/change display correctly, assert link navigates to `/coins/[id]`
+- [X] T01[P] [US1] Write unit tests for `getCoinMarkets()` in `app/_lib/__tests__/api.test.ts` — mock fetch, assert correct URL construction for page/sort/search params, assert `CoinMarketSummary[]` return shape, assert null on API error
+- [X] T01[P] [US1] Write unit tests for `formatMarketCap()`, `formatVolume()`, `formatSupply()` utility functions in `app/_lib/__tests__/utils.test.ts`
+- [X] T01[P] [US1] Write component test for `<PaginationControls>` in `app/components/__tests__/PaginationControls.test.tsx` — assert prev/next links render correct `?page=` URLs, assert current page is highlighted, assert disabled state on first/last page
+- [X] T01[P] [US1] Write component test for `<SearchInput>` in `app/components/__tests__/SearchInput.test.tsx` — assert input renders with initial value from URL, assert `router.replace` is called with debounced query after typing
+- [X] T01[P] [US1] Write component test for `<SortableColumnHeader>` in `app/components/__tests__/SortableColumnHeader.test.tsx` — assert active sort column shows directional indicator, assert link href resets page to 1 when sort changes
+- [X] T02[P] [US1] Write component test for `<CoinListSkeleton>` in `app/components/__tests__/CoinListSkeleton.test.tsx` — assert exactly `PAGE_SIZE` (50) skeleton rows render
+- [X] T02[P] [US1] Write component test for updated `<CoinListItem>` in `app/components/__tests__/CoinListItem.test.tsx` — assert coin image renders with `next/image`, assert name/symbol/price/change display correctly, assert link navigates to `/coins/[id]`
 
 ### Implementation for User Story 1
 
-- [ ] T022 [P] [US1] Add `formatMarketCap(n: number)`, `formatVolume(n: number)`, `formatSupply(n: number | null)` utility functions to `app/_lib/utils.ts` — format large numbers as `$1.23T`, `$456.7B`, `123.4M` etc.
-- [ ] T023 [P] [US1] Create `app/components/CoinListSkeleton.tsx` — renders `PAGE_SIZE` (50) animated pulse rows matching exact grid layout of `CoinListItem` (4-column at `lg`, stacked on mobile); include skeleton pagination bar at bottom
-- [ ] T024 [P] [US1] Create `app/components/PaginationControls.tsx` — Client Component; reads `useSearchParams()` for current page; renders Prev/Next buttons and page number links as `<Link prefetch={false}>` using `createQueryString` helper; disables Prev on page 1
-- [ ] T025 [P] [US1] Create `app/components/SearchInput.tsx` — Client Component; debounced (350ms) input that calls `router.replace()` with `?q=` param; clears `?page=` to 1 on new search; reads initial value from `useSearchParams()`
-- [ ] T026 [P] [US1] Create `app/components/SortableColumnHeader.tsx` — Client Component; renders column header as `<Link prefetch={false}>` pointing to `?sort=<value>&page=1`; shows ▲/▼ indicator for active sort column
-- [ ] T027 [US1] Update `app/components/CoinListItem.tsx` — add `image` prop; render coin logo with `<Image>` (24×24, from `assets.coingecko.com`); add `marketCap` and `volume` props with formatted display; keep existing price/change display
-- [ ] T028 [US1] Update `app/page.tsx` — `await searchParams`; parse `page`, `sort`, `q` params with safe defaults; call `getCoinMarkets()`; when `q` is set fetch `perPage=250` and filter server-side; render column headers with `<SortableColumnHeader>`, list with `<CoinListItem>`, controls with `<SearchInput>` and `<PaginationControls>`; handle error and empty states
-- [ ] T029 [US1] Update `app/loading.tsx` — replace hardcoded 5-row skeleton with `<CoinListSkeleton />` (50 rows)
+- [X] T02[P] [US1] Add `formatMarketCap(n: number)`, `formatVolume(n: number)`, `formatSupply(n: number | null)` utility functions to `app/_lib/utils.ts` — format large numbers as `$1.23T`, `$456.7B`, `123.4M` etc.
+- [X] T02[P] [US1] Create `app/components/CoinListSkeleton.tsx` — renders `PAGE_SIZE` (50) animated pulse rows matching exact grid layout of `CoinListItem` (4-column at `lg`, stacked on mobile); include skeleton pagination bar at bottom
+- [X] T02[P] [US1] Create `app/components/PaginationControls.tsx` — Client Component; reads `useSearchParams()` for current page; renders Prev/Next buttons and page number links as `<Link prefetch={false}>` using `createQueryString` helper; disables Prev on page 1
+- [X] T02[P] [US1] Create `app/components/SearchInput.tsx` — Client Component; debounced (350ms) input that calls `router.replace()` with `?q=` param; clears `?page=` to 1 on new search; reads initial value from `useSearchParams()`
+- [X] T02[P] [US1] Create `app/components/SortableColumnHeader.tsx` — Client Component; renders column header as `<Link prefetch={false}>` pointing to `?sort=<value>&page=1`; shows ▲/▼ indicator for active sort column
+- [X] T02[US1] Update `app/components/CoinListItem.tsx` — add `image` prop; render coin logo with `<Image>` (24×24, from `assets.coingecko.com`); add `marketCap` and `volume` props with formatted display; keep existing price/change display
+- [X] T02[US1] Update `app/page.tsx` — `await searchParams`; parse `page`, `sort`, `q` params with safe defaults; call `getCoinMarkets()`; when `q` is set fetch `perPage=250` and filter server-side; render column headers with `<SortableColumnHeader>`, list with `<CoinListItem>`, controls with `<SearchInput>` and `<PaginationControls>`; handle error and empty states
+- [X] T02[US1] Update `app/loading.tsx` — replace hardcoded 5-row skeleton with `<CoinListSkeleton />` (50 rows)
 
 **Checkpoint**: `npm run dev` → navigate to `/`. 50 coins visible, pagination/search/sort all functional without login. Run `npm test` — all US1 tests pass.
 

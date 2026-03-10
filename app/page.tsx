@@ -1,18 +1,49 @@
-import { COINS } from "./_lib/constants";
-import { getCoinsPrices } from "./_lib/api";
+import { auth } from "./_lib/auth";
+import { getCoinMarkets } from "./_lib/api";
+import { DEFAULT_SORT, PAGE_SIZE, SORT_OPTIONS } from "./_lib/constants";
+import { getUserFavouriteIds } from "./_lib/db/queries";
 import CoinListItem from "./components/CoinListItem";
 import ErrorMessage from "./components/ErrorMessage";
+import FavouriteToggle from "./components/FavouriteToggle";
+import PaginationControls from "./components/PaginationControls";
+import SearchInput from "./components/SearchInput";
+import SortableColumnHeader from "./components/SortableColumnHeader";
 
-const Home = async () => {
-  const data = await getCoinsPrices();
+type Props = {
+  searchParams: Promise<{
+    page?: string;
+    sort?: string;
+    q?: string;
+  }>;
+};
 
-  if (!data) {
+const TOTAL_COINS = 100;
+const TOTAL_PAGES = Math.ceil(TOTAL_COINS / PAGE_SIZE);
+
+const Home = async ({ searchParams }: Props) => {
+  const { page, sort, q } = await searchParams;
+
+  const currentPage = Math.max(1, Math.min(parseInt(page ?? "1", 10) || 1, TOTAL_PAGES));
+  const currentSort = SORT_OPTIONS[sort ?? ""] ? (sort as string) : DEFAULT_SORT;
+
+  const session = await auth();
+  const favouriteIds = session?.user?.id
+    ? await getUserFavouriteIds(session.user.id)
+    : [];
+  const isAuthenticated = Boolean(session?.user);
+
+  // When searching: fetch more results and filter server-side (avoids misleading partial results)
+  const isSearching = Boolean(q?.trim());
+  const coins = await getCoinMarkets({
+    page: isSearching ? 1 : currentPage,
+    sort: currentSort,
+    perPage: isSearching ? 250 : PAGE_SIZE,
+  });
+
+  if (!coins) {
     return (
       <>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-          Crypto Dashboard
-        </h1>
-        <div className="my-4 border-t border-slate-200" />
+        <Header />
         <ErrorMessage
           title="Error loading cryptocurrency data"
           message="Unable to fetch prices. Please try again later."
@@ -21,40 +52,84 @@ const Home = async () => {
     );
   }
 
+  const filtered = isSearching
+    ? coins.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q!.toLowerCase()) ||
+          c.symbol.toLowerCase().includes(q!.toLowerCase())
+      )
+    : coins;
+
+  return (
+    <>
+      <Header />
+
+      <div className="mt-4 mb-3">
+        <SearchInput />
+      </div>
+
+      {/* Column headers — desktop */}
+      <div className="hidden lg:grid lg:grid-cols-[2rem_1fr_1fr_1fr_1fr_6rem] lg:items-center lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:border-b lg:border-slate-200">
+        <span className="text-slate-400 font-medium text-right text-xs">#</span>
+        <SortableColumnHeader label="Name" sortKey="id_asc" />
+        <SortableColumnHeader label="Price" sortKey="price_asc" />
+        <SortableColumnHeader label="Market Cap" sortKey="market_cap_desc" />
+        <SortableColumnHeader label="Volume" sortKey="volume_desc" />
+        <SortableColumnHeader label="24h Change" sortKey="price_change_percentage_24h_desc" />
+      </div>
+
+      {filtered.length === 0 ? (
+        <p className="mt-8 text-center text-slate-500 text-sm">
+          No coins found for &ldquo;{q}&rdquo;.
+        </p>
+      ) : (
+        <div className="space-y-2 mt-2">
+          {filtered.map((coin) => (
+            <div key={coin.id} className="relative flex items-center gap-1">
+              <div className="flex-1">
+                <CoinListItem
+                  id={coin.id}
+                  name={coin.name}
+                  symbol={coin.symbol}
+                  image={coin.image}
+                  price={coin.current_price}
+                  percent={coin.price_change_percentage_24h}
+                  marketCap={coin.market_cap}
+                  volume={coin.total_volume}
+                  rank={coin.market_cap_rank}
+                />
+              </div>
+              <div className="shrink-0">
+                <FavouriteToggle
+                  coinId={coin.id}
+                  isFavourited={favouriteIds.includes(coin.id)}
+                  isAuthenticated={isAuthenticated}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {!isSearching && (
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={TOTAL_PAGES}
+        />
+      )}
+    </>
+  );
+};
+
+function Header() {
   return (
     <>
       <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
         Crypto Dashboard
       </h1>
       <div className="my-4 border-t border-slate-200" />
-
-      <div className="hidden lg:grid lg:grid-cols-4 lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:font-medium lg:text-slate-500 lg:border-b lg:border-slate-200">
-        <div>Name</div>
-        <div>Symbol</div>
-        <div>Price (USD)</div>
-        <div>24h Change</div>
-      </div>
-
-      <div className="space-y-4 lg:space-y-2 lg:mt-2">
-        {COINS.map((coin) => {
-          const priceData = data[coin.id];
-
-          if (!priceData) return null;
-
-          return (
-            <CoinListItem
-              key={coin.id}
-              id={coin.id}
-              name={coin.name}
-              price={priceData.usd}
-              percent={priceData.usd_24h_change}
-              symbol={coin.symbol}
-            />
-          );
-        })}
-      </div>
     </>
   );
-};
+}
 
 export default Home;

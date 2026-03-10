@@ -12,6 +12,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './'),
+      // 'server-only' is a Next.js runtime guard — no-op in tests
+      'server-only': path.resolve(__dirname, './vitest.server-only-mock.ts'),
     },
   },
 })
