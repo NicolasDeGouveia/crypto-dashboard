@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import CoinDescription from '../CoinDescription'
+import CoinDescription from '../coin/CoinDescription'
 
 describe('CoinDescription', () => {
   it('renders description text', () => {

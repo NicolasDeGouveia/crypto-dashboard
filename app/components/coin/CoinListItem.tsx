@@ -8,7 +8,7 @@ type Props = {
   symbol: string;
   image: string;
   price: number | null;
-  percent: number | null;
+  priceChangePercent24h: number | null;
   marketCap: number | null;
   volume: number | null;
   rank: number | null;
@@ -20,13 +20,13 @@ const CoinListItem = ({
   symbol,
   image,
   price,
-  percent,
+  priceChangePercent24h,
   marketCap,
   volume,
   rank,
 }: Props) => {
-  const percentColor =
-    percent != null && percent >= 0
+  const percentBadgeColor =
+    priceChangePercent24h != null && priceChangePercent24h >= 0
       ? "bg-emerald-50 text-emerald-700"
       : "bg-red-50 text-red-700";
 
@@ -61,8 +61,8 @@ const CoinListItem = ({
           <p className="text-base font-semibold text-slate-900">
             {formatPrice(price)}
           </p>
-          <span className={`rounded-full px-2.5 py-0.5 text-sm font-medium ${percentColor}`}>
-            {formatPercent(percent)}
+          <span className={`rounded-full px-2.5 py-0.5 text-sm font-medium ${percentBadgeColor}`}>
+            {formatPercent(priceChangePercent24h)}
           </span>
         </div>
       </div>
@@ -84,8 +84,8 @@ const CoinListItem = ({
 
       {/* 24h change — desktop */}
       <div className="hidden lg:block">
-        <span className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${percentColor}`}>
-          {formatPercent(percent)}
+        <span className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${percentBadgeColor}`}>
+          {formatPercent(priceChangePercent24h)}
         </span>
       </div>
     </Link>

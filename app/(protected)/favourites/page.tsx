@@ -2,7 +2,7 @@ import { auth } from "@/app/_lib/auth";
 import { getUserFavouriteIds } from "@/app/_lib/db/queries";
 import { getCoinMarkets } from "@/app/_lib/api";
 import FavouritesList from "@/app/components/FavouritesList";
-import ErrorMessage from "@/app/components/ErrorMessage";
+import ErrorMessage from "@/app/components/ui/ErrorMessage";
 
 export default async function FavouritesPage() {
   const session = await auth(); // session guaranteed by (protected) layout

@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import CoinListItem from '../CoinListItem'
+import CoinListItem from '../coin/CoinListItem'
 
 const baseProps = {
   id: 'bitcoin',
   name: 'Bitcoin',
   symbol: 'BTC',
   price: 50000,
-  percent: 5.25,
+  priceChangePercent24h: 5.25,
   image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
   marketCap: 1_000_000_000_000,
   volume: 30_000_000_000,
@@ -34,17 +34,17 @@ describe('CoinListItem', () => {
   })
 
   it('shows positive percent in green', () => {
-    render(<CoinListItem {...baseProps} percent={5.25} />)
+    render(<CoinListItem {...baseProps} priceChangePercent24h={5.25} />)
     expect(screen.getAllByText('+5.25%')[0]).toBeInTheDocument()
   })
 
   it('shows negative percent in red', () => {
-    render(<CoinListItem {...baseProps} percent={-2.5} />)
+    render(<CoinListItem {...baseProps} priceChangePercent24h={-2.5} />)
     expect(screen.getAllByText('-2.50%')[0]).toBeInTheDocument()
   })
 
   it('renders with null price gracefully', () => {
-    render(<CoinListItem {...baseProps} price={null} percent={null} />)
+    render(<CoinListItem {...baseProps} price={null} priceChangePercent24h={null} />)
     expect(screen.getByText('Bitcoin')).toBeInTheDocument()
   })
 })

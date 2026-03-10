@@ -1,6 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import LoginForm from '../LoginForm'
+
+vi.mock('next-auth/react', () => ({
+  signIn: vi.fn(),
+}))
+
+import LoginForm from '../auth/LoginForm'
 
 describe('LoginForm', () => {
   it('renders email and password fields', () => {

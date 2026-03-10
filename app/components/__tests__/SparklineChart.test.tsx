@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
-import SparklineChart from '../SparklineChart'
+import SparklineChart from '../coin/SparklineChart'
 
 describe('SparklineChart', () => {
   it('renders an SVG element', () => {

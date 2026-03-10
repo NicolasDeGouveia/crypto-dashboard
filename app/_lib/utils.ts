@@ -6,31 +6,31 @@ export function formatPrice(price: number | null): string {
   })}`;
 }
 
-export function formatMarketCap(n: number | null): string {
-  if (n == null) return "—";
-  if (n >= 1_000_000_000_000)
-    return `$${(n / 1_000_000_000_000).toFixed(2)}T`;
-  if (n >= 1_000_000_000)
-    return `$${(n / 1_000_000_000).toFixed(2)}B`;
-  if (n >= 1_000_000)
-    return `$${(n / 1_000_000).toFixed(2)}M`;
-  return `$${n.toLocaleString("en-US")}`;
+export function formatMarketCap(amount: number | null): string {
+  if (amount == null) return "—";
+  if (amount >= 1_000_000_000_000)
+    return `$${(amount / 1_000_000_000_000).toFixed(2)}T`;
+  if (amount >= 1_000_000_000)
+    return `$${(amount / 1_000_000_000).toFixed(2)}B`;
+  if (amount >= 1_000_000)
+    return `$${(amount / 1_000_000).toFixed(2)}M`;
+  return `$${amount.toLocaleString("en-US")}`;
 }
 
-export function formatVolume(n: number | null): string {
-  if (n == null) return "—";
-  if (n >= 1_000_000_000)
-    return `$${(n / 1_000_000_000).toFixed(2)}B`;
-  if (n >= 1_000_000)
-    return `$${(n / 1_000_000).toFixed(2)}M`;
-  return `$${n.toLocaleString("en-US")}`;
+export function formatVolume(amount: number | null): string {
+  if (amount == null) return "—";
+  if (amount >= 1_000_000_000)
+    return `$${(amount / 1_000_000_000).toFixed(2)}B`;
+  if (amount >= 1_000_000)
+    return `$${(amount / 1_000_000).toFixed(2)}M`;
+  return `$${amount.toLocaleString("en-US")}`;
 }
 
-export function formatSupply(n: number | null): string {
-  if (n == null) return "—";
-  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(2)}B`;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)}M`;
-  return n.toLocaleString("en-US");
+export function formatSupply(amount: number | null): string {
+  if (amount == null) return "—";
+  if (amount >= 1_000_000_000) return `${(amount / 1_000_000_000).toFixed(2)}B`;
+  if (amount >= 1_000_000) return `${(amount / 1_000_000).toFixed(2)}M`;
+  return amount.toLocaleString("en-US");
 }
 
 export function formatPercent(n: number | null): string {
@@ -39,8 +39,8 @@ export function formatPercent(n: number | null): string {
   return `${sign}${n.toFixed(2)}%`;
 }
 
-export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
+export function formatDate(isoDate: string): string {
+  return new Date(isoDate).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -53,11 +53,11 @@ export function createQueryString(
   updates: Record<string, string | null>
 ): string {
   const params = new URLSearchParams(current.toString());
-  for (const [key, value] of Object.entries(updates)) {
-    if (value === null) {
-      params.delete(key);
+  for (const [paramKey, paramValue] of Object.entries(updates)) {
+    if (paramValue === null) {
+      params.delete(paramKey);
     } else {
-      params.set(key, value);
+      params.set(paramKey, paramValue);
     }
   }
   return params.toString();

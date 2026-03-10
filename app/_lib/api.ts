@@ -1,5 +1,5 @@
 import "server-only";
-import { COINGECKO_API_KEY, COINGECKO_BASE_URL, COINS, DEFAULT_SORT, PAGE_SIZE } from "./constants";
+import { COINGECKO_API_KEY, COINGECKO_BASE_URL, DEFAULT_SORT, PAGE_SIZE } from "./constants";
 import { CoinDetail, CoinMarketsParams, CoinMarketSummary, CoinPriceResponse } from "./types";
 
 const getHeaders = () => ({
@@ -76,9 +76,11 @@ export async function getCoinDetails(id: string): Promise<CoinDetail | null> {
 }
 
 // Legacy function — kept for backward compatibility
+const LEGACY_COIN_IDS = "bitcoin,ethereum,dogecoin,cardano,solana";
+
 export async function getCoinsPrices(): Promise<CoinPriceResponse | null> {
   try {
-    const ids = COINS.map((coin) => coin.id).join(",");
+    const ids = LEGACY_COIN_IDS;
     const res = await fetch(
       `${COINGECKO_BASE_URL}/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`,
       {

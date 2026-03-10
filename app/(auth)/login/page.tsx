@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/app/_lib/auth";
-import LoginForm from "@/app/components/LoginForm";
+import LoginForm from "@/app/components/auth/LoginForm";
 
 const AUTH_ERROR_MESSAGES: Record<string, string> = {
   SessionRequired: "Your session has expired. Please sign in again.",
@@ -16,8 +16,8 @@ export default async function LoginPage({ searchParams }: Props) {
   const session = await auth();
   if (session?.user) redirect("/");
 
-  const { error, callbackUrl } = await searchParams;
-  const errorMessage = error ? (AUTH_ERROR_MESSAGES[error] ?? AUTH_ERROR_MESSAGES.Default) : undefined;
+  const { error: authError, callbackUrl } = await searchParams;
+  const errorMessage = authError ? (AUTH_ERROR_MESSAGES[authError] ?? AUTH_ERROR_MESSAGES.Default) : undefined;
 
   return (
     <div className="mx-auto max-w-sm py-12">

@@ -5,10 +5,10 @@ import { getCoinDetails } from "../../_lib/api";
 import { auth } from "../../_lib/auth";
 import { getUserFavouriteIds } from "../../_lib/db/queries";
 import { formatPrice, formatMarketCap, formatVolume, formatSupply, formatDate } from "../../_lib/utils";
-import { StatCard } from "../../components/StatCard";
-import CoinDescription from "../../components/CoinDescription";
-import SparklineChart from "../../components/SparklineChart";
-import PriceChangeTable from "../../components/PriceChangeTable";
+import { StatCard } from "../../components/ui/StatCard";
+import CoinDescription from "../../components/coin/CoinDescription";
+import SparklineChart from "../../components/coin/SparklineChart";
+import PriceChangeTable from "../../components/coin/PriceChangeTable";
 import FavouriteToggle from "../../components/FavouriteToggle";
 
 type Props = {
@@ -29,7 +29,7 @@ const CoinDetailPage = async ({ params }: Props) => {
     : [];
   const isAuthenticated = Boolean(session?.user);
 
-  const md = coin.market_data;
+  const marketData = coin.market_data;
 
   return (
     <>
@@ -65,9 +65,9 @@ const CoinDetailPage = async ({ params }: Props) => {
       <div className="my-4 border-t border-slate-200" />
 
       {/* 7-day sparkline */}
-      {md.sparkline_7d?.price?.length ? (
+      {marketData.sparkline_7d?.price?.length ? (
         <div className="mb-4 flex justify-end">
-          <SparklineChart prices={md.sparkline_7d.price} />
+          <SparklineChart prices={marketData.sparkline_7d.price} />
         </div>
       ) : null}
 
@@ -75,17 +75,17 @@ const CoinDetailPage = async ({ params }: Props) => {
       <div className="grid gap-4 sm:grid-cols-3">
         <StatCard
           label="Current Price"
-          value={formatPrice(md.current_price.usd)}
+          value={formatPrice(marketData.current_price.usd)}
           valueColor="default"
         />
         <StatCard
           label="24h High"
-          value={formatPrice(md.high_24h.usd)}
+          value={formatPrice(marketData.high_24h.usd)}
           valueColor="success"
         />
         <StatCard
           label="24h Low"
-          value={formatPrice(md.low_24h.usd)}
+          value={formatPrice(marketData.low_24h.usd)}
           valueColor="danger"
         />
       </div>
@@ -94,37 +94,37 @@ const CoinDetailPage = async ({ params }: Props) => {
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           label="Market Cap"
-          value={formatMarketCap(md.market_cap.usd)}
+          value={formatMarketCap(marketData.market_cap.usd)}
           valueColor="default"
         />
         <StatCard
           label="24h Volume"
-          value={formatVolume(md.total_volume.usd)}
+          value={formatVolume(marketData.total_volume.usd)}
           valueColor="default"
         />
         <StatCard
           label="Circulating Supply"
-          value={formatSupply(md.circulating_supply)}
+          value={formatSupply(marketData.circulating_supply)}
           valueColor="default"
         />
         <StatCard
           label="Max Supply"
-          value={formatSupply(md.max_supply)}
+          value={formatSupply(marketData.max_supply)}
           valueColor="default"
         />
       </div>
 
       {/* ATH */}
-      {md.ath.usd != null && (
+      {marketData.ath.usd != null && (
         <div className="mt-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-black/5">
           <p className="text-sm font-medium text-slate-500">All-Time High</p>
           <div className="mt-1 flex items-baseline justify-between">
             <span className="text-xl font-bold text-slate-900">
-              {formatPrice(md.ath.usd)}
+              {formatPrice(marketData.ath.usd)}
             </span>
-            {md.ath_date.usd && (
+            {marketData.ath_date.usd && (
               <span className="text-sm text-slate-400">
-                {formatDate(md.ath_date.usd)}
+                {formatDate(marketData.ath_date.usd)}
               </span>
             )}
           </div>
@@ -133,9 +133,9 @@ const CoinDetailPage = async ({ params }: Props) => {
 
       {/* Price change table */}
       <PriceChangeTable
-        change24h={md.price_change_percentage_24h}
-        change7d={md.price_change_percentage_7d}
-        change30d={md.price_change_percentage_30d}
+        change24h={marketData.price_change_percentage_24h}
+        change7d={marketData.price_change_percentage_7d}
+        change30d={marketData.price_change_percentage_30d}
       />
 
       {/* Description */}

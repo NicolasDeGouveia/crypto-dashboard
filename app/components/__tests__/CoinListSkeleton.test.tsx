@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
-import CoinListSkeleton from '../CoinListSkeleton'
+import CoinListSkeleton from '../coin/CoinListSkeleton'
 import { PAGE_SIZE } from '@/app/_lib/constants'
 
 describe('CoinListSkeleton', () => {

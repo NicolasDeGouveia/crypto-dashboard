@@ -2,8 +2,8 @@ import { auth } from "./_lib/auth";
 import { getCoinMarkets } from "./_lib/api";
 import { DEFAULT_SORT, PAGE_SIZE, SORT_OPTIONS } from "./_lib/constants";
 import { getUserFavouriteIds } from "./_lib/db/queries";
-import CoinListItem from "./components/CoinListItem";
-import ErrorMessage from "./components/ErrorMessage";
+import CoinListItem from "./components/coin/CoinListItem";
+import ErrorMessage from "./components/ui/ErrorMessage";
 import FavouriteToggle from "./components/FavouriteToggle";
 import PaginationControls from "./components/PaginationControls";
 import SearchInput from "./components/SearchInput";
@@ -21,10 +21,10 @@ const TOTAL_COINS = 100;
 const TOTAL_PAGES = Math.ceil(TOTAL_COINS / PAGE_SIZE);
 
 const Home = async ({ searchParams }: Props) => {
-  const { page, sort, q } = await searchParams;
+  const { page: pageParam, sort: sortParam, q: queryParam } = await searchParams;
 
-  const currentPage = Math.max(1, Math.min(parseInt(page ?? "1", 10) || 1, TOTAL_PAGES));
-  const currentSort = SORT_OPTIONS[sort ?? ""] ? (sort as string) : DEFAULT_SORT;
+  const currentPage = Math.max(1, Math.min(parseInt(pageParam ?? "1", 10) || 1, TOTAL_PAGES));
+  const currentSort = SORT_OPTIONS[sortParam ?? ""] ? (sortParam as string) : DEFAULT_SORT;
 
   const session = await auth();
   const favouriteIds = session?.user?.id
@@ -33,7 +33,7 @@ const Home = async ({ searchParams }: Props) => {
   const isAuthenticated = Boolean(session?.user);
 
   // When searching: fetch more results and filter server-side (avoids misleading partial results)
-  const isSearching = Boolean(q?.trim());
+  const isSearching = Boolean(queryParam?.trim());
   const coins = await getCoinMarkets({
     page: isSearching ? 1 : currentPage,
     sort: currentSort,
@@ -55,8 +55,8 @@ const Home = async ({ searchParams }: Props) => {
   const filtered = isSearching
     ? coins.filter(
         (c) =>
-          c.name.toLowerCase().includes(q!.toLowerCase()) ||
-          c.symbol.toLowerCase().includes(q!.toLowerCase())
+          c.name.toLowerCase().includes(queryParam!.toLowerCase()) ||
+          c.symbol.toLowerCase().includes(queryParam!.toLowerCase())
       )
     : coins;
 
@@ -80,7 +80,7 @@ const Home = async ({ searchParams }: Props) => {
 
       {filtered.length === 0 ? (
         <p className="mt-8 text-center text-slate-500 text-sm">
-          No coins found for &ldquo;{q}&rdquo;.
+          No coins found for &ldquo;{queryParam}&rdquo;.
         </p>
       ) : (
         <div className="space-y-2 mt-2">
@@ -93,7 +93,7 @@ const Home = async ({ searchParams }: Props) => {
                   symbol={coin.symbol}
                   image={coin.image}
                   price={coin.current_price}
-                  percent={coin.price_change_percentage_24h}
+                  priceChangePercent24h={coin.price_change_percentage_24h}
                   marketCap={coin.market_cap}
                   volume={coin.total_volume}
                   rank={coin.market_cap_rank}

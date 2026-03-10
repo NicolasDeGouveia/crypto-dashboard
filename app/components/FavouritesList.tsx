@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CoinMarketSummary } from "@/app/_lib/types";
-import CoinListItem from "./CoinListItem";
+import CoinListItem from "./coin/CoinListItem";
 import FavouriteToggle from "./FavouriteToggle";
 
 type Props = {
@@ -49,7 +49,7 @@ export default function FavouritesList({
                 symbol={coin.symbol}
                 image={coin.image}
                 price={coin.current_price}
-                percent={coin.price_change_percentage_24h}
+                priceChangePercent24h={coin.price_change_percentage_24h}
                 marketCap={coin.market_cap}
                 volume={coin.total_volume}
                 rank={coin.market_cap_rank}

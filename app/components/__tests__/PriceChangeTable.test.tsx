@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import PriceChangeTable from '../PriceChangeTable'
+import PriceChangeTable from '../coin/PriceChangeTable'
 
 describe('PriceChangeTable', () => {
   const props = {

@@ -1,4 +1,4 @@
-import CoinListSkeleton from "./components/CoinListSkeleton";
+import CoinListSkeleton from "./components/coin/CoinListSkeleton";
 
 export default function Loading() {
   return (

@@ -12,7 +12,7 @@ vi.mock('@/app/_actions/auth', () => ({
   register: vi.fn().mockResolvedValue({ success: true }),
 }))
 
-import RegisterForm from '../RegisterForm'
+import RegisterForm from '../auth/RegisterForm'
 
 describe('RegisterForm', () => {
   it('renders email and password fields', () => {

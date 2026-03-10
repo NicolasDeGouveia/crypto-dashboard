@@ -20,8 +20,10 @@ describe('SearchInput', () => {
     vi.useRealTimers()
   })
 
-  it('renders with initial value from URL', () => {
-    render(<SearchInput />)
+  it('renders with initial value from URL', async () => {
+    await act(async () => {
+      render(<SearchInput />)
+    })
     expect(screen.getByRole('textbox')).toHaveValue('bitcoin')
   })
 
