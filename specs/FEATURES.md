@@ -25,6 +25,7 @@
 | 010 | 010-search-input-redesign | Search Input Redesign | P8 | 009 | Modern search input: icon, pill shape, focus ring, fix role="textbox" anti-pattern. |
 | 011 | 011-ui-redesign | UI Redesign — Light + Dark Mode | P9 | 010 | Light mode with more character (inspired by Linear/Vercel/Raycast) + full dark mode. |
 | 012 | 012-chart-multi-period | Chart Multi-Period View | P10 | 008 | 1h/24h/7d/30d/1y period selector on coin detail page using CoinGecko market_chart endpoint. |
+| 013 | 013-dark-glassmorphism | Dark Glassmorphism Redesign | P11 | 011, 012 | Dark-only redesign inspired by Coinova: deep violet background, glass cards, fuchsia/violet glow effects, gradient accents. Remove light mode entirely. |
 
 ## Naming convention
 
