@@ -2,6 +2,7 @@ import { formatPrice } from "@/app/_lib/utils";
 
 type Props = {
   prices: number[];
+  label?: string;
 };
 
 const PADDING_X = 72; // space for Y-axis price labels
@@ -9,7 +10,7 @@ const PADDING_Y = 12;
 const VIEW_WIDTH = 600;
 const VIEW_HEIGHT = 120;
 
-export default function SparklineChart({ prices }: Props) {
+export default function SparklineChart({ prices, label = "7-day price (USD)" }: Props) {
   if (!prices.length) return null;
 
   const min = Math.min(...prices);
@@ -37,7 +38,7 @@ export default function SparklineChart({ prices }: Props) {
       <svg
         viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
         width="100%"
-        aria-label="7-day price sparkline"
+        aria-label={`${label} sparkline`}
         className="block"
       >
         {/* Grid lines */}
@@ -62,7 +63,7 @@ export default function SparklineChart({ prices }: Props) {
           strokeLinejoin="round"
         />
       </svg>
-      <p className="mt-1 text-right text-xs text-slate-400">7-day price (USD)</p>
+      <p className="mt-1 text-right text-xs text-zinc-400">{label}</p>
     </div>
   );
 }

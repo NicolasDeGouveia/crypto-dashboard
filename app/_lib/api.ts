@@ -1,6 +1,6 @@
 import "server-only";
 import { COINGECKO_API_KEY, COINGECKO_BASE_URL, DEFAULT_SORT, PAGE_SIZE } from "./constants";
-import { CoinDetail, CoinMarketsParams, CoinMarketSummary, CoinPriceResponse } from "./types";
+import { CoinDetail, CoinMarketsParams, CoinMarketSummary, CoinMarketChart, CoinPriceResponse } from "./types";
 
 const getHeaders = () => ({
   "x-cg-demo-api-key": COINGECKO_API_KEY || "",
@@ -71,6 +71,39 @@ export async function getCoinDetails(id: string): Promise<CoinDetail | null> {
     return data ?? null;
   } catch (error) {
     console.error(`Error fetching coin details for ${id}:`, error);
+    return null;
+  }
+}
+
+export async function getCoinMarketChart(id: string, days: string): Promise<CoinMarketChart | null> {
+  try {
+    const params = new URLSearchParams({
+      vs_currency: "usd",
+      days,
+      precision: "full",
+    });
+
+    const res = await fetch(
+      `${COINGECKO_BASE_URL}/coins/${id}/market_chart?${params.toString()}`,
+      {
+        headers: getHeaders(),
+        next: { revalidate: 60, tags: [`coin-chart:${id}`] },
+      }
+    );
+
+    if (!res.ok) {
+      if (res.status === 429) {
+        console.error("API rate limit exceeded.");
+      } else {
+        console.error(`API error for chart ${id}: ${res.status}`);
+      }
+      return null;
+    }
+
+    const data: CoinMarketChart = await res.json();
+    return data ?? null;
+  } catch (error) {
+    console.error(`Error fetching market chart for ${id}:`, error);
     return null;
   }
 }

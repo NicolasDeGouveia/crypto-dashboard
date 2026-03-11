@@ -72,6 +72,13 @@ export type CoinDetail = {
   };
 };
 
+// From /coins/{id}/market_chart?vs_currency=usd&days=N
+export type CoinMarketChart = {
+  prices: [number, number][]; // [timestamp_ms, price]
+};
+
+export type ChartPeriod = "1" | "7" | "30" | "90" | "365";
+
 // Legacy type kept for backward compat (maps to CoinDetail shape)
 export type CoinDetails = CoinDetail;
 
