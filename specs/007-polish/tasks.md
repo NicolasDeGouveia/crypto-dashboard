@@ -15,4 +15,4 @@
 - [X] T005 [P] Update `README.md` — env vars setup, `npm run db:migrate` step, Neon/Upstash links
 - [X] T006 Add `SESSION_EXPIRED` redirect handling — Auth.js redirects expired sessions with `?error=SessionRequired`; handled in `app/(auth)/login/page.tsx` via `AUTH_ERROR_MESSAGES.SessionRequired`
 - [X] T007 Responsive audit — verified at 375 px, 768 px, 1280 px; `CoinListItem` uses `lg:` breakpoint separation with explicit mobile layout; `PaginationControls` uses `justify-between`; `FavouritesList` uses `flex-1`/`shrink-0` — no overflow issues found
-- [ ] T008 Run full `quickstart.md` validation — execute every acceptance scenario against running dev server; confirm no browser console errors
+- [X] T008 Run full `quickstart.md` validation — execute every acceptance scenario against running dev server; confirm no browser console errors
