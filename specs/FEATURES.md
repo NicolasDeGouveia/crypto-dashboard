@@ -21,6 +21,10 @@
 | 006 | 006-favourites | Manage Favourite Coins | P4 | 003, 005 | Toggle favourites, `/favourites` page with live prices. |
 | 007 | 007-polish | Polish & Cross-Cutting Concerns | P5 | 003, 004, 005, 006 | Rate limiting, responsive audit, WCAG 2.1 AA, error states. |
 | 008 | 008-ui-fixes | UI Fixes — Mobile Nav & Sparkline | P6 | 007 | Mobile navbar not tappable (logo link missing); sparkline unreadable with no axes or price labels. |
+| 009 | 009-remove-redundant-h1 | Remove Redundant H1 on Home | P7 | 008 | H1 "Crypto Dashboard" is redundant with the navbar logo — remove it. |
+| 010 | 010-search-input-redesign | Search Input Redesign | P8 | 009 | Modern search input: icon, pill shape, focus ring, fix role="textbox" anti-pattern. |
+| 011 | 011-ui-redesign | UI Redesign — Light + Dark Mode | P9 | 010 | Light mode with more character (inspired by Linear/Vercel/Raycast) + full dark mode. |
+| 012 | 012-chart-multi-period | Chart Multi-Period View | P10 | 008 | 1h/24h/7d/30d/1y period selector on coin detail page using CoinGecko market_chart endpoint. |
 
 ## Naming convention
 
