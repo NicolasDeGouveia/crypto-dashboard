@@ -20,6 +20,7 @@
 | 005 | 005-auth-register-login | User Registration & Login | P3 | 002 | Email + password auth via Auth.js v5 credentials provider. |
 | 006 | 006-favourites | Manage Favourite Coins | P4 | 003, 005 | Toggle favourites, `/favourites` page with live prices. |
 | 007 | 007-polish | Polish & Cross-Cutting Concerns | P5 | 003, 004, 005, 006 | Rate limiting, responsive audit, WCAG 2.1 AA, error states. |
+| 008 | 008-ui-fixes | UI Fixes — Mobile Nav & Sparkline | P6 | 007 | Mobile navbar not tappable (logo link missing); sparkline unreadable with no axes or price labels. |
 
 ## Naming convention
 
