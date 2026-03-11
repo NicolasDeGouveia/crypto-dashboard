@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "./_lib/auth";
 import UserNav from "./components/UserNav";
@@ -36,9 +37,12 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <header className="border-b border-slate-200 bg-white shadow-sm">
             <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 flex items-center justify-between">
-              <span className="text-sm font-semibold text-slate-900">
+              <Link
+                href="/"
+                className="text-sm font-semibold text-slate-900 hover:text-slate-600 transition-colors shrink-0"
+              >
                 Crypto Dashboard
-              </span>
+              </Link>
               <UserNav />
             </div>
           </header>

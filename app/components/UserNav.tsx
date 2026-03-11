@@ -24,14 +24,16 @@ export default async function UserNav() {
   }
 
   return (
-    <nav className="flex items-center gap-4">
+    <nav className="flex items-center gap-2 sm:gap-4">
       <Link
         href="/favourites"
         className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
       >
         My Favourites
       </Link>
-      <span className="text-sm text-slate-500">{session.user.email}</span>
+      <span className="hidden sm:block text-sm text-slate-500 truncate max-w-[160px]">
+        {session.user.email}
+      </span>
       <form
         action={async () => {
           "use server";

@@ -42,4 +42,16 @@ describe('UserNav', () => {
     render(Component)
     expect(screen.getByRole('button', { name: /log out/i })).toBeInTheDocument()
   })
+
+  it('renders My Favourites link when session is active', async () => {
+    const { auth } = await import('@/app/_lib/auth')
+    vi.mocked(auth).mockResolvedValue({
+      user: { id: 'user-1', email: 'alice@example.com', name: 'Alice' },
+      expires: '2099-01-01',
+    } as never)
+
+    const Component = await UserNav()
+    render(Component)
+    expect(screen.getByRole('link', { name: /my favourites/i })).toHaveAttribute('href', '/favourites')
+  })
 })

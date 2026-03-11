@@ -66,7 +66,7 @@ const CoinDetailPage = async ({ params }: Props) => {
 
       {/* 7-day sparkline */}
       {marketData.sparkline_7d?.price?.length ? (
-        <div className="mb-4 flex justify-end">
+        <div className="mb-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-black/5">
           <SparklineChart prices={marketData.sparkline_7d.price} />
         </div>
       ) : null}
