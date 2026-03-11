@@ -8,20 +8,21 @@
 | # | Feature | Progress | Status |
 |---|---------|----------|--------|
 | 002 | Setup & Foundational Infrastructure | 14/14 | ✅ completed |
-| 003 | Browse the Full Coin List | - | ⏳ pending |
-| 004 | Rich Coin Detail Page | - | ⏳ pending |
-| 005 | User Registration & Login | - | ⏳ pending |
-| 006 | Manage Favourite Coins | - | ⏳ pending |
-| 007 | Polish & Cross-Cutting Concerns | - | ⏳ pending |
+| 003 | Browse the Full Coin List | 15/15 | ✅ completed |
+| 004 | Rich Coin Detail Page | 9/9 | ✅ completed |
+| 005 | User Registration & Login | 12/12 | ✅ completed |
+| 006 | Manage Favourite Coins | 14/14 | ✅ completed |
+| 007 | Polish & Cross-Cutting Concerns | 5/8 | 🔄 in-progress |
 
 ## Summary
 
-- **Completed**: 1
-- **In progress**: 0
-- **Pending**: 5
+- **Completed**: 5
+- **In progress**: 1
+- **Pending**: 0
 
 ## Next feature
 
-[003 — Browse the Full Coin List](./003-coin-list/spec.md) ⏳
+[007 — Polish & Cross-Cutting Concerns](./007-polish/tasks.md) 🔄
 
-To start: run `/speckit.next` and confirm branch creation.
+This feature is already in progress (5/8 tasks done).
+To continue: run `/speckit.implement`.
