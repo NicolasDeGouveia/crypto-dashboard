@@ -42,13 +42,10 @@ const Home = async ({ searchParams }: Props) => {
 
   if (!coins) {
     return (
-      <>
-        <Header />
-        <ErrorMessage
-          title="Error loading cryptocurrency data"
-          message="Unable to fetch prices. Please try again later."
-        />
-      </>
+      <ErrorMessage
+        title="Error loading cryptocurrency data"
+        message="Unable to fetch prices. Please try again later."
+      />
     );
   }
 
@@ -62,9 +59,7 @@ const Home = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <Header />
-
-      <div className="mt-4 mb-3">
+      <div className="mb-3">
         <SearchInput />
       </div>
 
@@ -120,16 +115,5 @@ const Home = async ({ searchParams }: Props) => {
     </>
   );
 };
-
-function Header() {
-  return (
-    <>
-      <h1 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-        Crypto Dashboard
-      </h1>
-      <div className="my-4 border-t border-slate-200" />
-    </>
-  );
-}
 
 export default Home;
