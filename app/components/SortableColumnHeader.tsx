@@ -25,12 +25,18 @@ export default function SortableColumnHeader({ label, sortKey }: Props) {
     <Link
       href={href}
       prefetch={false}
-      className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-slate-900 ${
-        isActive ? "text-slate-900" : "text-slate-500"
+      className={`flex items-center gap-1 text-xs font-medium uppercase tracking-wide transition-colors ${
+        isActive
+          ? "text-violet-600 dark:text-violet-400"
+          : "text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100"
       }`}
     >
       {label}
-      {isActive && <span>{sortKey.endsWith("_asc") ? "↑" : "↓"}</span>}
+      {isActive && (
+        <span className="text-violet-500 dark:text-violet-400">
+          {sortKey.endsWith("_asc") ? "↑" : "↓"}
+        </span>
+      )}
     </Link>
   );
 }

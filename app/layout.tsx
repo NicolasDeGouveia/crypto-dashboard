@@ -30,16 +30,16 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-100 text-slate-900`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100`}
       >
         <SessionProvider session={session}>
-          <header className="border-b border-slate-200 bg-white shadow-sm">
+          <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/80 backdrop-blur-sm dark:border-zinc-800 dark:bg-zinc-950/80">
             <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6 flex items-center justify-between">
               <Link
                 href="/"
-                className="text-sm font-semibold text-slate-900 hover:text-slate-600 transition-colors shrink-0"
+                className="text-sm font-semibold text-zinc-900 hover:text-indigo-600 transition-colors shrink-0 dark:text-zinc-100 dark:hover:text-indigo-400"
               >
                 Crypto Dashboard
               </Link>

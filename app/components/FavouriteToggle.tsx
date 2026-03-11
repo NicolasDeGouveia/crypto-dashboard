@@ -45,8 +45,8 @@ export default function FavouriteToggle({
           ? `Remove ${coinId} from favourites`
           : `Add ${coinId} to favourites`
       }
-      className={`rounded-full p-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1 ${
-        isPending ? "opacity-50 cursor-wait" : "hover:bg-slate-100"
+      className={`rounded-full p-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-1 ${
+        isPending ? "opacity-50 cursor-wait" : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
       }`}
     >
       {optimisticFav ? (
@@ -72,7 +72,7 @@ export default function FavouriteToggle({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 text-slate-400"
+          className="w-5 h-5 text-zinc-400 dark:text-zinc-500"
           aria-hidden="true"
         >
           <path
