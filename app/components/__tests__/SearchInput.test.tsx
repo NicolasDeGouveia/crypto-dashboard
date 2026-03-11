@@ -24,12 +24,12 @@ describe('SearchInput', () => {
     await act(async () => {
       render(<SearchInput />)
     })
-    expect(screen.getByRole('textbox')).toHaveValue('bitcoin')
+    expect(screen.getByRole('searchbox')).toHaveValue('bitcoin')
   })
 
   it('calls router.replace with debounced query after typing', async () => {
     render(<SearchInput />)
-    const input = screen.getByRole('textbox')
+    const input = screen.getByRole('searchbox')
 
     fireEvent.change(input, { target: { value: 'eth' } })
     expect(mockReplace).not.toHaveBeenCalled()
@@ -45,7 +45,7 @@ describe('SearchInput', () => {
 
   it('resets page to 1 on new search', async () => {
     render(<SearchInput />)
-    const input = screen.getByRole('textbox')
+    const input = screen.getByRole('searchbox')
 
     fireEvent.change(input, { target: { value: 'sol' } })
 
