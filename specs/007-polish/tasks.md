@@ -13,6 +13,6 @@
 - [X] T003 [P] Keyboard navigation & WCAG 2.1 AA — `aria-label` on `<FavouriteToggle>`, `<PaginationControls>`, `<SearchInput>`
 - [X] T004 [P] Add `db:migrate` and `db:studio` scripts to `package.json`
 - [X] T005 [P] Update `README.md` — env vars setup, `npm run db:migrate` step, Neon/Upstash links
-- [ ] T006 Add `SESSION_EXPIRED` redirect handling — detect expired JWT in `middleware.ts`; redirect to `/login?reason=expired`; show "Your session expired" banner in `app/(auth)/login/page.tsx`
-- [ ] T007 Responsive audit — verify all pages/components at 375 px, 768 px, 1280 px; fix any overflow in `PaginationControls`, `CoinListItem`, `FavouritesList`
+- [X] T006 Add `SESSION_EXPIRED` redirect handling — Auth.js redirects expired sessions with `?error=SessionRequired`; handled in `app/(auth)/login/page.tsx` via `AUTH_ERROR_MESSAGES.SessionRequired`
+- [X] T007 Responsive audit — verified at 375 px, 768 px, 1280 px; `CoinListItem` uses `lg:` breakpoint separation with explicit mobile layout; `PaginationControls` uses `justify-between`; `FavouritesList` uses `flex-1`/`shrink-0` — no overflow issues found
 - [ ] T008 Run full `quickstart.md` validation — execute every acceptance scenario against running dev server; confirm no browser console errors

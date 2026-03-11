@@ -12,7 +12,7 @@
 | 004 | Rich Coin Detail Page | 9/9 | ✅ completed |
 | 005 | User Registration & Login | 12/12 | ✅ completed |
 | 006 | Manage Favourite Coins | 14/14 | ✅ completed |
-| 007 | Polish & Cross-Cutting Concerns | 5/8 | 🔄 in-progress |
+| 007 | Polish & Cross-Cutting Concerns | 7/8 | 🔄 in-progress |
 
 ## Summary
 
