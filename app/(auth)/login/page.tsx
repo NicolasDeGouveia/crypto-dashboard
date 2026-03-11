@@ -21,13 +21,15 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-sm py-12">
-      <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 mb-2 text-center dark:text-zinc-100">
-        Sign in
-      </h1>
-      <p className="text-sm text-zinc-500 text-center mb-8 dark:text-zinc-400">
-        Welcome back to Crypto Dashboard
-      </p>
-      <LoginForm error={errorMessage} callbackUrl={callbackUrl} />
+      <div className="glass rounded-2xl p-8">
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-100 mb-2 text-center">
+          Sign in
+        </h1>
+        <p className="text-sm text-zinc-500 text-center mb-8">
+          Welcome back to Crypto Dashboard
+        </p>
+        <LoginForm error={errorMessage} callbackUrl={callbackUrl} />
+      </div>
     </div>
   );
 }

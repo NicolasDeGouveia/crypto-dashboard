@@ -19,9 +19,9 @@ export default function PaginationControls({ currentPage, totalPages }: Props) {
   const isFirst = currentPage <= 1;
   const isLast = currentPage >= totalPages;
 
-  const btnBase = "inline-flex items-center rounded-lg px-4 py-2 text-sm font-medium transition-colors";
-  const btnActive = `${btnBase} border border-zinc-200 bg-white text-zinc-600 hover:bg-zinc-50 hover:border-violet-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:border-violet-700`;
-  const btnDisabled = `${btnBase} border border-zinc-100 bg-white text-zinc-300 cursor-not-allowed select-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-700`;
+  const btnBase = "inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition-all";
+  const btnActive = `${btnBase} glass glass-hover text-zinc-300 hover:text-zinc-100 hover:glow-violet`;
+  const btnDisabled = `${btnBase} border border-white/5 bg-white/3 text-zinc-700 cursor-not-allowed select-none`;
 
   return (
     <nav
@@ -36,7 +36,7 @@ export default function PaginationControls({ currentPage, totalPages }: Props) {
         </Link>
       )}
 
-      <span className="text-sm text-zinc-400 tabular-nums dark:text-zinc-500">
+      <span className="text-sm text-zinc-500 tabular-nums">
         Page {currentPage} of {totalPages}
       </span>
 

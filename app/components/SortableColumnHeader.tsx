@@ -27,13 +27,13 @@ export default function SortableColumnHeader({ label, sortKey }: Props) {
       prefetch={false}
       className={`flex items-center gap-1 text-xs font-medium uppercase tracking-wide transition-colors ${
         isActive
-          ? "text-violet-600 dark:text-violet-400"
-          : "text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-100"
+          ? "text-fuchsia-400"
+          : "text-zinc-500 hover:text-zinc-200"
       }`}
     >
       {label}
       {isActive && (
-        <span className="text-violet-500 dark:text-violet-400">
+        <span className="text-fuchsia-400">
           {sortKey.endsWith("_asc") ? "↑" : "↓"}
         </span>
       )}

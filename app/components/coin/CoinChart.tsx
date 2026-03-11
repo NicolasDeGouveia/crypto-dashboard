@@ -48,7 +48,7 @@ export default function CoinChart({ coinId, initialPeriod, initialPrices }: Prop
   };
 
   return (
-    <div className="mb-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-800">
+    <div className="mb-4 rounded-xl p-4 glass">
       <div className="flex items-center gap-1.5 mb-3" role="group" aria-label="Chart period">
         {PERIODS.map(({ value, label }) => {
           const isActive = activePeriod === value;
@@ -57,10 +57,10 @@ export default function CoinChart({ coinId, initialPeriod, initialPrices }: Prop
               key={value}
               onClick={() => handleSelect(value)}
               aria-pressed={isActive}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 ${
+              className={`rounded-full px-3 py-1 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500/40 ${
                 isActive
-                  ? "bg-indigo-600 text-white dark:bg-indigo-500"
-                  : "bg-transparent text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-[0_0_16px_rgba(217,70,239,0.4)]"
+                  : "text-zinc-500 hover:bg-white/8 hover:text-zinc-200"
               }`}
             >
               {label}
@@ -72,7 +72,7 @@ export default function CoinChart({ coinId, initialPeriod, initialPrices }: Prop
         {prices.length > 0 ? (
           <SparklineChart prices={prices} label={PERIOD_LABELS[activePeriod]} />
         ) : (
-          <p className="py-8 text-center text-sm text-zinc-400">No chart data available.</p>
+          <p className="py-8 text-center text-sm text-zinc-500">No chart data available.</p>
         )}
       </div>
     </div>

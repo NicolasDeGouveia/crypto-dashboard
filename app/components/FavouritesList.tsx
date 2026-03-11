@@ -9,20 +9,16 @@ type Props = {
   isAuthenticated: boolean;
 };
 
-export default function FavouritesList({
-  coins,
-  favouriteIds,
-  isAuthenticated,
-}: Props) {
+export default function FavouritesList({ coins, favouriteIds, isAuthenticated }: Props) {
   if (!coins.length) {
     return (
       <div className="mt-8 text-center py-16">
-        <p className="text-slate-500 text-sm mb-4">
+        <p className="text-zinc-500 text-sm mb-4">
           No favourites yet. Browse the list and star the coins you want to track.
         </p>
         <Link
           href="/"
-          className="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-700 transition-colors"
+          className="inline-flex items-center rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2.5 text-sm font-medium text-white hover:from-violet-500 hover:to-fuchsia-500 hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all"
         >
           Browse coins
         </Link>
@@ -36,7 +32,7 @@ export default function FavouritesList({
         <div key={coin.id} className="relative">
           {coin.current_price == null && (
             <div className="absolute top-2 right-2 z-10">
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500">
+              <span className="rounded-full bg-white/8 px-2 py-0.5 text-xs text-zinc-500">
                 Data unavailable
               </span>
             </div>

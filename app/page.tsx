@@ -64,8 +64,8 @@ const Home = async ({ searchParams }: Props) => {
       </div>
 
       {/* Column headers — desktop */}
-      <div className="hidden lg:grid lg:grid-cols-[2rem_1fr_1fr_1fr_1fr_6rem] lg:items-center lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:border-b lg:border-slate-200">
-        <span className="text-slate-400 font-medium text-right text-xs">#</span>
+      <div className="hidden lg:grid lg:grid-cols-[2rem_1fr_1fr_1fr_1fr_6rem] lg:items-center lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:border-b lg:border-white/8">
+        <span className="text-zinc-600 font-medium text-right text-xs">#</span>
         <SortableColumnHeader label="Name" sortKey="id_asc" />
         <SortableColumnHeader label="Price" sortKey="price_asc" />
         <SortableColumnHeader label="Market Cap" sortKey="market_cap_desc" />
@@ -74,7 +74,7 @@ const Home = async ({ searchParams }: Props) => {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-8 text-center text-slate-500 text-sm">
+        <p className="mt-8 text-center text-zinc-500 text-sm">
           No coins found for &ldquo;{queryParam}&rdquo;.
         </p>
       ) : (

@@ -49,7 +49,7 @@ const CoinDetailPage = async ({ params, searchParams }: Props) => {
     <>
       <Link
         href="/"
-        className="inline-flex items-center text-sm text-zinc-500 hover:text-zinc-900 mb-4 dark:text-zinc-400 dark:hover:text-zinc-100"
+        className="inline-flex items-center text-sm text-zinc-500 hover:text-zinc-300 mb-4 transition-colors"
       >
         ← Back to Dashboard
       </Link>
@@ -64,10 +64,10 @@ const CoinDetailPage = async ({ params, searchParams }: Props) => {
           className="rounded-full"
         />
         <div className="flex-1">
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl capitalize dark:text-zinc-100">
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-100 sm:text-3xl capitalize">
             {coin.name}
           </h1>
-          <p className="text-zinc-500 uppercase mt-0.5 dark:text-zinc-400">{coin.symbol}</p>
+          <p className="text-zinc-500 uppercase mt-0.5 tracking-wide text-sm">{coin.symbol}</p>
         </div>
         <FavouriteToggle
           coinId={id}
@@ -76,7 +76,7 @@ const CoinDetailPage = async ({ params, searchParams }: Props) => {
         />
       </div>
 
-      <div className="my-4 border-t border-zinc-200 dark:border-zinc-800" />
+      <div className="my-4 border-t border-white/8" />
 
       {/* Multi-period chart */}
       <CoinChart
@@ -130,14 +130,14 @@ const CoinDetailPage = async ({ params, searchParams }: Props) => {
 
       {/* ATH */}
       {marketData.ath.usd != null && (
-        <div className="mt-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-800">
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">All-Time High</p>
+        <div className="mt-4 rounded-xl p-6 glass">
+          <p className="text-sm font-medium text-zinc-500">All-Time High</p>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xl font-bold text-zinc-900 tabular-nums dark:text-zinc-100">
+            <span className="text-xl font-bold text-zinc-100 tabular-nums">
               {formatPrice(marketData.ath.usd)}
             </span>
             {marketData.ath_date.usd && (
-              <span className="text-sm text-zinc-400 dark:text-zinc-500">
+              <span className="text-sm text-zinc-600">
                 {formatDate(marketData.ath_date.usd)}
               </span>
             )}

@@ -16,13 +16,13 @@ describe('SparklineChart', () => {
   it('uses green color when last price >= first price', () => {
     const { container: c } = render(<SparklineChart prices={[100, 110, 120]} />)
     const polyline = c.querySelector('polyline')
-    expect(polyline?.getAttribute('stroke')).toBe('#059669')
+    expect(polyline?.getAttribute('stroke')).toBe('#a855f7')
   })
 
   it('uses red color when last price < first price', () => {
     const { container: c } = render(<SparklineChart prices={[120, 110, 100]} />)
     const polyline = c.querySelector('polyline')
-    expect(polyline?.getAttribute('stroke')).toBe('#dc2626')
+    expect(polyline?.getAttribute('stroke')).toBe('#f87171')
   })
 
   it('renders nothing for empty prices array', () => {

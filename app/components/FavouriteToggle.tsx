@@ -45,17 +45,18 @@ export default function FavouriteToggle({
           ? `Remove ${coinId} from favourites`
           : `Add ${coinId} to favourites`
       }
-      className={`rounded-full p-1.5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-1 ${
-        isPending ? "opacity-50 cursor-wait" : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+      className={`rounded-full p-1.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500/60 ${
+        isPending
+          ? "opacity-50 cursor-wait"
+          : "hover:bg-white/8 hover:shadow-[0_0_16px_rgba(217,70,239,0.3)]"
       }`}
     >
       {optimisticFav ? (
-        // Filled star
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-5 h-5 text-amber-400"
+          className="w-5 h-5 text-fuchsia-400"
           aria-hidden="true"
         >
           <path
@@ -65,14 +66,13 @@ export default function FavouriteToggle({
           />
         </svg>
       ) : (
-        // Outline star
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 text-zinc-400 dark:text-zinc-500"
+          className="w-5 h-5 text-zinc-500 hover:text-fuchsia-400 transition-colors"
           aria-hidden="true"
         >
           <path

@@ -20,14 +20,14 @@ export default function CoinDescription({ description }: Props) {
     isTruncatable && !expanded ? plainText.slice(0, MAX_LENGTH) + "…" : plainText;
 
   return (
-    <div className="mt-6 rounded-xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-      <p className="text-sm font-medium text-slate-500 mb-2">About</p>
-      <p className="text-sm text-slate-700 leading-relaxed">{displayText}</p>
+    <div className="mt-6 rounded-xl p-6 glass">
+      <p className="text-sm font-medium text-zinc-500 mb-2">About</p>
+      <p className="text-sm text-zinc-400 leading-relaxed">{displayText}</p>
       {isTruncatable && (
         <button
           type="button"
           onClick={() => setExpanded((isExpanded) => !isExpanded)}
-          className="mt-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+          className="mt-2 text-sm font-medium text-zinc-500 hover:text-zinc-200 transition-colors"
         >
           {expanded ? "Show less" : "Read more"}
         </button>

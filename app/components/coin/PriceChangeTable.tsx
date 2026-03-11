@@ -16,23 +16,23 @@ export default function PriceChangeTable({ change24h, change7d, change30d }: Pro
   const values = { change24h, change7d, change30d };
 
   return (
-    <div className="mt-6 rounded-xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-      <p className="text-sm font-medium text-slate-500 mb-3">Price Change</p>
+    <div className="mt-6 rounded-xl p-6 glass">
+      <p className="text-sm font-medium text-zinc-500 mb-3">Price Change</p>
       <table className="w-full text-sm">
         <tbody>
           {rows.map(({ label, key }) => {
             const changeValue = values[key];
             const isPositive = changeValue != null && changeValue >= 0;
             return (
-              <tr key={label} className="border-b border-slate-100 last:border-0">
-                <td className="py-2 text-slate-500 font-medium">{label}</td>
+              <tr key={label} className="border-b border-white/6 last:border-0">
+                <td className="py-2 text-zinc-400 font-medium">{label}</td>
                 <td
-                  className={`py-2 text-right font-semibold ${
+                  className={`py-2 text-right font-semibold tabular-nums ${
                     changeValue == null
-                      ? "text-slate-400"
+                      ? "text-zinc-600"
                       : isPositive
-                      ? "text-emerald-700"
-                      : "text-red-700"
+                      ? "text-emerald-400"
+                      : "text-red-400"
                   }`}
                 >
                   {formatPercent(changeValue)}

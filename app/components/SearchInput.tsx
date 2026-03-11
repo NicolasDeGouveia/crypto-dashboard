@@ -30,7 +30,7 @@ export default function SearchInput() {
 
       {/* Search icon */}
       <svg
-        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"
+        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -52,7 +52,7 @@ export default function SearchInput() {
         placeholder="Search coins…"
         autoComplete="off"
         spellCheck={false}
-        className="w-full rounded-full border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-10 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition-colors focus:bg-white focus:border-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/40"
+        className="w-full rounded-full border border-white/10 bg-white/5 py-2.5 pl-11 pr-10 text-sm text-zinc-100 placeholder-zinc-500 backdrop-blur-sm transition-all focus:border-violet-500/60 focus:bg-white/8 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/30"
       />
 
       {value && (
@@ -62,7 +62,7 @@ export default function SearchInput() {
             setValue("");
             handleChange("");
           }}
-          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-slate-400 hover:text-slate-600 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-zinc-500 hover:text-zinc-200 transition-colors"
           aria-label="Clear search"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">

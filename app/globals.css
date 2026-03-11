@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 html {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 html,
@@ -10,11 +10,34 @@ body {
 }
 
 body {
-  @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+  @apply bg-[#0a0a1a] text-zinc-100 antialiased;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 /* Tabular numbers for all price/number displays */
 .num {
   font-variant-numeric: tabular-nums;
+}
+
+/* Glassmorphism surface */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Violet glow */
+.glow-violet {
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.35);
+}
+
+/* Fuchsia glow */
+.glow-fuchsia {
+  box-shadow: 0 0 24px rgba(217, 70, 239, 0.35);
 }
