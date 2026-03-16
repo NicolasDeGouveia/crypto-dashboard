@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPrice, formatMarketCap, formatVolume, formatSupply, formatPercent, formatDate } from '../utils'
+import { formatPrice, formatMarketCap, formatVolume, formatSupply, formatPercent, formatDate, sortCoins } from '../utils'
 
 describe('formatPrice', () => {
   it('should format regular prices correctly', () => {
@@ -76,5 +76,62 @@ describe('formatDate', () => {
   it('formats ISO date string to locale date', () => {
     const result = formatDate('2021-11-10T14:24:11.849Z')
     expect(result).toMatch(/Nov|11/)  // locale-agnostic check
+  })
+})
+
+describe('sortCoins', () => {
+  const coins = [
+    { name: 'Solana', current_price: 100 },
+    { name: 'Bitcoin', current_price: 60000 },
+    { name: 'Ethereum', current_price: 3000 },
+    { name: 'Dogecoin', current_price: 0.1 },
+    { name: 'Cardano', current_price: 0.5 },
+  ]
+
+  it('sorts name_asc A→Z', () => {
+    const result = sortCoins(coins, 'name_asc')
+    expect(result.map((c) => c.name)).toEqual([
+      'Bitcoin', 'Cardano', 'Dogecoin', 'Ethereum', 'Solana',
+    ])
+  })
+
+  it('sorts name_desc Z→A', () => {
+    const result = sortCoins(coins, 'name_desc')
+    expect(result.map((c) => c.name)).toEqual([
+      'Solana', 'Ethereum', 'Dogecoin', 'Cardano', 'Bitcoin',
+    ])
+  })
+
+  it('sorts price_asc lowest→highest', () => {
+    const result = sortCoins(coins, 'price_asc')
+    expect(result.map((c) => c.current_price)).toEqual([0.1, 0.5, 100, 3000, 60000])
+  })
+
+  it('sorts price_desc highest→lowest', () => {
+    const result = sortCoins(coins, 'price_desc')
+    expect(result.map((c) => c.current_price)).toEqual([60000, 3000, 100, 0.5, 0.1])
+  })
+
+  it('places null prices at the bottom regardless of direction', () => {
+    const withNull = [
+      { name: 'A', current_price: 100 },
+      { name: 'B', current_price: null },
+      { name: 'C', current_price: 50 },
+    ]
+    const asc = sortCoins(withNull, 'price_asc')
+    expect(asc[2].name).toBe('B')
+    const desc = sortCoins(withNull, 'price_desc')
+    expect(desc[2].name).toBe('B')
+  })
+
+  it('returns original order for API-handled sort keys (market_cap_desc)', () => {
+    const result = sortCoins(coins, 'market_cap_desc')
+    expect(result.map((c) => c.name)).toEqual(coins.map((c) => c.name))
+  })
+
+  it('does not mutate the original array', () => {
+    const original = [...coins]
+    sortCoins(coins, 'name_asc')
+    expect(coins.map((c) => c.name)).toEqual(original.map((c) => c.name))
   })
 })

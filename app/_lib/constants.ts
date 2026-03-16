@@ -11,4 +11,8 @@ export const SORT_OPTIONS: Record<string, string> = {
   volume_asc: 'Volume ↑',
   price_change_percentage_24h_desc: '24h Change ↓',
   price_change_percentage_24h_asc: '24h Change ↑',
+  name_asc: 'Name A→Z',
+  name_desc: 'Name Z→A',
+  price_asc: 'Price ↑',
+  price_desc: 'Price ↓',
 };

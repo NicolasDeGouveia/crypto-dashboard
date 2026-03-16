@@ -6,18 +6,20 @@ import { createQueryString } from "@/app/_lib/utils";
 
 type Props = {
   label: string;
-  sortKey: string;
+  defaultSortKey: string;
+  toggleSortKey: string;
 };
 
-export default function SortableColumnHeader({ label, sortKey }: Props) {
+export default function SortableColumnHeader({ label, defaultSortKey, toggleSortKey }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const currentSort = searchParams.get("sort") ?? "market_cap_desc";
 
-  const isActive = currentSort === sortKey;
+  const isActive = currentSort === defaultSortKey || currentSort === toggleSortKey;
+  const nextSortKey = isActive && currentSort === defaultSortKey ? toggleSortKey : defaultSortKey;
 
   const href = `${pathname}?${createQueryString(searchParams, {
-    sort: sortKey,
+    sort: nextSortKey,
     page: "1",
   })}`;
 
@@ -34,7 +36,7 @@ export default function SortableColumnHeader({ label, sortKey }: Props) {
       {label}
       {isActive && (
         <span className="text-fuchsia-400">
-          {sortKey.endsWith("_asc") ? "↑" : "↓"}
+          {currentSort.endsWith("_asc") ? "↑" : "↓"}
         </span>
       )}
     </Link>

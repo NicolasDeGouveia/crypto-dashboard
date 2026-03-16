@@ -2,6 +2,7 @@ import { auth } from "./_lib/auth";
 import { getCoinMarkets } from "./_lib/api";
 import { DEFAULT_SORT, PAGE_SIZE, SORT_OPTIONS } from "./_lib/constants";
 import { getUserFavouriteIds } from "./_lib/db/queries";
+import { sortCoins } from "./_lib/utils";
 import CoinListItem from "./components/coin/CoinListItem";
 import ErrorMessage from "./components/ui/ErrorMessage";
 import FavouriteToggle from "./components/FavouriteToggle";
@@ -40,7 +41,9 @@ const Home = async ({ searchParams }: Props) => {
     perPage: isSearching ? 250 : PAGE_SIZE,
   });
 
-  if (!coins) {
+  const sortedCoins = coins ? sortCoins(coins, currentSort) : coins;
+
+  if (!sortedCoins) {
     return (
       <ErrorMessage
         title="Error loading cryptocurrency data"
@@ -50,12 +53,12 @@ const Home = async ({ searchParams }: Props) => {
   }
 
   const filtered = isSearching
-    ? coins.filter(
+    ? sortedCoins.filter(
         (c) =>
           c.name.toLowerCase().includes(queryParam!.toLowerCase()) ||
           c.symbol.toLowerCase().includes(queryParam!.toLowerCase())
       )
-    : coins;
+    : sortedCoins;
 
   return (
     <>
@@ -66,11 +69,11 @@ const Home = async ({ searchParams }: Props) => {
       {/* Column headers — desktop */}
       <div className="hidden lg:grid lg:grid-cols-[2rem_1fr_1fr_1fr_1fr_6rem] lg:items-center lg:gap-6 lg:px-5 lg:py-3 lg:text-sm lg:border-b lg:border-white/8">
         <span className="text-zinc-600 font-medium text-right text-xs">#</span>
-        <SortableColumnHeader label="Name" sortKey="id_asc" />
-        <SortableColumnHeader label="Price" sortKey="price_asc" />
-        <SortableColumnHeader label="Market Cap" sortKey="market_cap_desc" />
-        <SortableColumnHeader label="Volume" sortKey="volume_desc" />
-        <SortableColumnHeader label="24h Change" sortKey="price_change_percentage_24h_desc" />
+        <SortableColumnHeader label="Name" defaultSortKey="name_asc" toggleSortKey="name_desc" />
+        <SortableColumnHeader label="Price" defaultSortKey="price_desc" toggleSortKey="price_asc" />
+        <SortableColumnHeader label="Market Cap" defaultSortKey="market_cap_desc" toggleSortKey="market_cap_asc" />
+        <SortableColumnHeader label="Volume" defaultSortKey="volume_desc" toggleSortKey="volume_asc" />
+        <SortableColumnHeader label="24h Change" defaultSortKey="price_change_percentage_24h_desc" toggleSortKey="price_change_percentage_24h_asc" />
       </div>
 
       {filtered.length === 0 ? (
